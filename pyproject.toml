@@ -1,0 +1,104 @@
+[build-system]
+requires = ["scikit-build-core>=0.3.3", "pybind11>=2.10.0"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "gptoss"
+version = "0.1.0"
+description = "Educational implementation of GPT-OSS from scratch in Python"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "projektjoetom@gmail.com"}
+]
+maintainers = [
+    {name = "Your Name", email = "projektjoetom@gmail.com"}
+]
+keywords = [
+    "machine-learning",
+    "deep-learning",
+    "transformer",
+    "gpt",
+    "llm",
+    "educational",
+    "mixture-of-experts",
+    "attention",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education",
+]
+
+dependencies = [
+    "numpy>=1.20.0",
+    "safetensors>=0.3.0",
+    "packaging>=21.0",
+    "transformers>=4.30.0",
+    "pybind11>=2.10.0",
+    "psutil"
+]
+
+[project.optional-dependencies]
+torch = [
+    "torch>=2.0.0",
+]
+
+dev = [
+    "torch>=2.0.0",
+    "openai_harmony>=0.1.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+docs = [
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+]
+
+all = [
+    "gptoss[torch,dev,docs]",
+]
+
+[project.urls]
+Homepage = "https://github.com/projektjoe/gptoss"
+Documentation = "https://github.com/projektjoe/gptoss#readme"
+Repository = "https://github.com/projektjoe/gptoss"
+"Bug Tracker" = "https://github.com/projektjoe/gptoss/issues"
+
+[tool.scikit-build]
+cmake.source-dir = "dtypes"
+cmake.build-type = "Release"
+cmake.minimum-version = "3.15"
+wheel.install-dir = "."
+wheel.py-api = "py3"
+install.components = ["python"]
+# Include Python source files from root
+sdist.include = ["main.py", "load.py", "official_implementation.py", "dtypes/*.py"]
+sdist.exclude = [".git*", "build", "dist", "*.egg-info"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=gptoss --cov-report=term-missing"
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
