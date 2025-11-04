@@ -407,7 +407,7 @@ def generate(gptoss: GPTOSS, tokenizer: AutoTokenizer, prompt_tokens: list[int],
     while len(all_tokens) - len(prompt_tokens) < max_tokens:
         current_token = all_tokens[pos]
         logits = gptoss(current_token, pos)
-        if pos >= len(prompt_tokens) - 1:
+        if pos >= len(prompt_tokens):
             token = sample(logits, temperature=temperature)
             if token == EOS_TOKEN:
                 break
